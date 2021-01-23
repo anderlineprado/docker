@@ -10,3 +10,21 @@ services:
     restart: unless-stopped
     ports: 
       - "3000:3000"
+    networks: 
+      - netapp
+  
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    ports:
+      - 8080:80
+    networks: 
+      - netapp
+    depends_on: 
+      - nodeapp
+
+networks: 
+  netapp:
+    driver: bridge
