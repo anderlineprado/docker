@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  nodeapp:
+    build:
+      context: ./node
+      dockerfile: Dockerfile
+    image: nodeapp
+    container_name: nodeapp
+    restart: unless-stopped
+    ports: 
+      - "3000:3000"
