@@ -12,10 +12,13 @@ const connection = mysql.createConnection({
     database: "database"
 })
 
-const createTable = `create table if not exists people (name VARCHAR(255))`
+connection.connect(() => {
+    const createTable = `create table if not exists people (name VARCHAR(255))`
+    connection.query(createTable)
+})
+
 const createPerson = `insert into people (name) values ('Anderson')`
 
-connection.query(createTable)
 connection.query(createPerson)
 
 app.get('/', (req, res) => {
