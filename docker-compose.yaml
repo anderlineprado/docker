@@ -15,14 +15,16 @@ services:
     networks: 
       - netapp
     depends_on: 
-       - db
+       - data
   
-  db:
+  data:
     image: mysql:5.7
     command: --innodb-use-native-aio=0
-    container_name: db
+    container_name: data
     restart: always
     tty: true
+    volumes: 
+      - ./mysql:/var/lib/mysql
     environment: 
       - MYSQL_DATABASE=database
       - MYSQL_ROOT_PASSWORD=root
