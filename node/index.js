@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
     const query = `select * from people`
     connection.query(query, (error, results) => {
         for(let result of results) {
-            res.send(`
+            res.end(`
                 <h1>FullCycle Rocks!!</h1>
                 <p>${result["name"]}</p>
             `)
