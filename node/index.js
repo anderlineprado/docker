@@ -12,18 +12,18 @@ const connection = mysql.createConnection({
     database: "database"
 })
 
-connection.connect(() => {
-    const createTable = `create table if not exists people (name VARCHAR(255))`
-    connection.query(createTable)
+const createTable = `create table if not exists people (name VARCHAR(255))`
+connection.query(createTable)
+
+app.listen(3000, () => {
+	console.log(`Server running`)
 })
 
-const createPerson = `insert into people (name) values ('Anderson')`
-
-connection.query(createPerson)
-
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+    const createPerson = `insert into people (name) values ('Anderson')`
+    await connection.query(createPerson)
     const query = `select * from people`
-    connection.query(query, (error, results) => {
+    await connection.query(query, (error, results) => {
         for(let result of results) {
             res.end(`
                 <h1>FullCycle Rocks!!</h1>
@@ -32,8 +32,4 @@ app.get('/', (req, res) => {
         }
     });
     connection.end()
-})
-
-app.listen(3000, () => {
-    console.log('Server Running.')
 })
