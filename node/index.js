@@ -3,34 +3,35 @@ const mysql = require('mysql')
 const bodyParser = require('body-parser')
 
 const app = express();
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
     host: "data",
     user: "root",
     password: "root",
     database: "database"
-})
+});
 
-const createTable = `create table if not exists people (name VARCHAR(255))`
-connection.query(createTable)
+const createTable = `create table if not exists people (name VARCHAR(255))`;
+connection.query(createTable);
 
 app.get('/', (req, res) => {
-    const createPerson = `insert into people (name) values ('Anderson')`
-    connection.query(createPerson)
+    const createPerson = `insert into people (name) values ('Anderson')`;
+    connection.query(createPerson);
 
-    const query = `select * from people`
+    const query = `select * from people`;
     connection.query(query, (error, results) => {
-        for(let result of results) {
+      	if(error) console.log(error);
+	for(let result of results) {
             res.end(`
                 <h1>FullCycle Rocks!!</h1>
                 <p>${result["name"]}</p>
             `)
         }
     });
-    connection.end()
-})
+    connection.end();
+});
 
 app.listen(3000, () => {
-        console.log(`Server running`)
+        console.log(`Server running`);
 })
