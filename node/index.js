@@ -15,15 +15,16 @@ const connection = mysql.createConnection({
 const createTable = `create table if not exists people (name VARCHAR(255))`
 connection.query(createTable)
 
+const createPerson = `insert into people (name) values ('Anderson')`
+    connection.query(createPerson)
+
 app.listen(3000, () => {
 	console.log(`Server running`)
 })
 
-app.get('/', async (req, res) => {
-    const createPerson = `insert into people (name) values ('Anderson')`
-    await connection.query(createPerson)
+app.get('/', (req, res) => {
     const query = `select * from people`
-    await connection.query(query, (error, results) => {
+    connection.query(query, (error, results) => {
         for(let result of results) {
             res.end(`
                 <h1>FullCycle Rocks!!</h1>
