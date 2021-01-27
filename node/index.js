@@ -15,14 +15,14 @@ const connection = mysql.createConnection({
 const createTable = `create table if not exists people (name VARCHAR(255))`
 connection.query(createTable)
 
-const createPerson = `insert into people (name) values ('Anderson')`
-    connection.query(createPerson)
-
 app.listen(3000, () => {
 	console.log(`Server running`)
 })
 
 app.get('/', (req, res) => {
+    const createPerson = `insert into people (name) values ('Anderson')`
+    connection.query(createPerson)
+
     const query = `select * from people`
     connection.query(query, (error, results) => {
         for(let result of results) {
