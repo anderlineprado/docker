@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
       	if(error) console.log(error);
 	for(let result of results) {
             res.end(`
-                <h1>FullCycle Rocks!!</h1>
+                <h1>Names list</h1>
                 <p>${result["name"]}</p>
             `)
         }
